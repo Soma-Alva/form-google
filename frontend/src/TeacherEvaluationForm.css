@@ -1,0 +1,254 @@
+.evaluation-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  animation: fadeIn 0.3s ease-in;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.evaluation-card {
+  background-color: white;
+  border-radius: 12px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+  max-width: 600px;
+  width: 90%;
+  max-height: 90vh;
+  overflow-y: auto;
+  animation: slideUp 0.4s ease-out;
+  padding: 32px;
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateY(40px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.evaluation-header {
+  text-align: center;
+  margin-bottom: 24px;
+  padding-bottom: 16px;
+  border-bottom: 2px solid #f0f0f0;
+}
+
+.evaluation-header h2 {
+  margin: 0;
+  font-size: 24px;
+  font-weight: 600;
+  color: #202124;
+  margin-bottom: 8px;
+}
+
+.evaluation-header p {
+  margin: 0;
+  font-size: 14px;
+  color: #5f6368;
+}
+
+.evaluation-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.form-section {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.form-label {
+  font-size: 14px;
+  font-weight: 500;
+  color: #202124;
+  margin-bottom: 4px;
+}
+
+/* Rating Slider */
+.rating-container {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px;
+  background-color: #f8f9fa;
+  border-radius: 8px;
+}
+
+.rating-slider {
+  flex: 1;
+  height: 6px;
+  border-radius: 3px;
+  background: linear-gradient(to right, #ea4335, #fbbc04, #34a853);
+  outline: none;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+.rating-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: white;
+  border: 2px solid #1f73e7;
+  cursor: pointer;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.rating-slider::-moz-range-thumb {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: white;
+  border: 2px solid #1f73e7;
+  cursor: pointer;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.rating-value {
+  font-size: 18px;
+  font-weight: 600;
+  color: #1f73e7;
+  min-width: 30px;
+  text-align: center;
+}
+
+/* Textarea */
+.form-textarea {
+  padding: 12px;
+  border: 1px solid #dadce0;
+  border-radius: 8px;
+  font-family: inherit;
+  font-size: 14px;
+  color: #202124;
+  resize: vertical;
+  transition: all 0.2s ease;
+  background-color: white;
+}
+
+.form-textarea:hover {
+  border-color: #c6c6c6;
+}
+
+.form-textarea:focus {
+  outline: none;
+  border-color: #1f73e7;
+  box-shadow: 0 0 0 3px rgba(31, 115, 231, 0.1);
+}
+
+.form-textarea.textarea-error {
+  border-color: #d33b27;
+  background-color: #fff5f5;
+}
+
+.form-textarea.textarea-error:focus {
+  box-shadow: 0 0 0 3px rgba(211, 59, 39, 0.1);
+}
+
+/* Error message */
+.error-message {
+  font-size: 12px;
+  color: #d33b27;
+  margin-top: 2px;
+  display: block;
+}
+
+/* Form Actions */
+.form-actions {
+  display: flex;
+  gap: 12px;
+  margin-top: 16px;
+  justify-content: flex-end;
+}
+
+.btn-secondary,
+.btn-primary {
+  padding: 10px 24px;
+  border: none;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btn-secondary {
+  background-color: white;
+  color: #1f73e7;
+  border: 1px solid #dadce0;
+}
+
+.btn-secondary:hover {
+  background-color: #f8f9fa;
+  border-color: #c6c6c6;
+}
+
+.btn-secondary:active {
+  background-color: #f1f3f4;
+}
+
+.btn-primary {
+  background-color: #1f73e7;
+  color: white;
+}
+
+.btn-primary:hover {
+  background-color: #1865cc;
+  box-shadow: 0 2px 8px rgba(31, 115, 231, 0.3);
+}
+
+.btn-primary:active {
+  background-color: #1450a8;
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+  .evaluation-card {
+    padding: 24px;
+    max-height: 95vh;
+  }
+
+  .evaluation-header h2 {
+    font-size: 20px;
+  }
+
+  .form-actions {
+    flex-direction: column-reverse;
+  }
+
+  .btn-secondary,
+  .btn-primary {
+    width: 100%;
+  }
+
+  .rating-container {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .rating-value {
+    min-width: auto;
+    text-align: center;
+  }
+}

@@ -1,7 +1,8 @@
 {
-  "name": "quizzes-app",
+  "name": "quizzes-frontend",
   "version": "0.1.0",
   "private": true,
+  "proxy": "http://localhost:5000",
   "dependencies": {
     "@testing-library/dom": "^10.4.1",
     "@testing-library/jest-dom": "^6.9.1",
@@ -10,24 +11,13 @@
     "react": "^19.2.6",
     "react-dom": "^19.2.6",
     "react-scripts": "5.0.1",
-    "web-vitals": "^2.1.4",
-    "express": "^4.18.2",
-    "cors": "^2.8.5",
-    "sqlite3": "^5.1.6",
-    "pg": "^8.11.2",
-    "dotenv": "^16.3.1",
-    "body-parser": "^1.20.2"
-  },
-  "devDependencies": {
-    "concurrently": "^8.2.1"
+    "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "setup": "npm install && npm install --prefix backend && npm install --prefix frontend",
-    "server": "npm --prefix backend start",
-    "client": "npm --prefix frontend start",
-    "dev": "npm --prefix backend start",
-    "build": "npm --prefix frontend run build",
-    "view-data": "npm --prefix backend run view-data"
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
   },
   "eslintConfig": {
     "extends": [

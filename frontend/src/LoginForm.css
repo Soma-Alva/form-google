@@ -1,0 +1,445 @@
+/* Variables de color estilo Google */
+:root {
+  --google-blue: #1f2937;
+  --google-light-gray: #f8f9fa;
+  --google-border-gray: #dadce0;
+  --google-text-gray: #5f6368;
+  --google-error-red: #d33b27;
+  --google-focus-blue: #1a73e8;
+  --google-hover-light: #f1f3f4;
+}
+
+/* Contenedor principal */
+.login-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+}
+
+/* Tarjeta de login */
+.login-card {
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+  padding: 40px;
+  width: 100%;
+  max-width: 450px;
+  animation: slideIn 0.4s ease-out;
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Header del login */
+.login-header {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+/* Logo de Google */
+.google-logo {
+  font-size: 56px;
+  font-weight: 700;
+  letter-spacing: -1px;
+  margin-bottom: 20px;
+  font-family: 'Google Sans', 'Helvetica Neue', sans-serif;
+}
+
+.logo-g {
+  color: #4285f4;
+}
+
+.logo-o:nth-of-type(1) {
+  color: #ea4335;
+}
+
+.logo-o:nth-of-type(2) {
+  color: #fbbc04;
+}
+
+.logo-g:nth-of-type(2) {
+  color: #4285f4;
+}
+
+.logo-l {
+  color: #34a853;
+}
+
+.logo-e {
+  color: #ea4335;
+}
+
+/* Títulos */
+.login-title {
+  font-size: 32px;
+  font-weight: 500;
+  color: #202124;
+  margin: 0 0 8px;
+}
+
+.login-subtitle {
+  font-size: 16px;
+  color: var(--google-text-gray);
+  margin: 0;
+  font-weight: 400;
+}
+
+/* Formulario */
+.login-form {
+  margin-bottom: 20px;
+}
+
+.form-group {
+  margin-bottom: 18px;
+}
+
+/* Input */
+.form-input {
+  width: 100%;
+  padding: 12px 12px;
+  border: 1px solid var(--google-border-gray);
+  border-radius: 4px;
+  font-size: 16px;
+  box-sizing: border-box;
+  background-color: var(--google-light-gray);
+  color: #202124;
+  transition: all 0.2s ease;
+}
+
+.form-input:focus {
+  outline: none;
+  background-color: white;
+  border-color: var(--google-focus-blue);
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.04), 0 2px 4px rgba(0, 0, 0, 0.08);
+}
+
+.form-input::placeholder {
+  color: #9ca3af;
+}
+
+.form-input.input-error {
+  border-color: var(--google-error-red);
+  background-color: #fce8e6;
+}
+
+.form-input.input-error:focus {
+  box-shadow: 0 1px 1px rgba(211, 59, 39, 0.04), 0 2px 4px rgba(211, 59, 39, 0.08);
+}
+
+/* Mensajes de error */
+.error-message {
+  display: block;
+  color: var(--google-error-red);
+  font-size: 12px;
+  margin-top: 4px;
+  font-weight: 500;
+}
+
+/* Pista de formulario */
+.form-hint {
+  font-size: 13px;
+  color: var(--google-text-gray);
+  margin: 12px 0 20px;
+}
+
+.form-link {
+  color: var(--google-focus-blue);
+  text-decoration: none;
+  font-weight: 500;
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+
+.form-link:hover {
+  color: #1557b0;
+  text-decoration: underline;
+}
+
+/* Mostrar correo */
+.email-display {
+  background-color: var(--google-light-gray);
+  padding: 12px;
+  border-radius: 4px;
+  margin-bottom: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.email-label {
+  color: #202124;
+  font-size: 14px;
+  margin: 0;
+  font-weight: 500;
+}
+
+.btn-change-email {
+  background: none;
+  border: none;
+  color: var(--google-focus-blue);
+  font-size: 13px;
+  cursor: pointer;
+  font-weight: 500;
+  padding: 0;
+  transition: color 0.2s ease;
+}
+
+.btn-change-email:hover {
+  color: #1557b0;
+}
+
+/* Password input wrapper */
+.password-input-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.toggle-password {
+  position: absolute;
+  right: 12px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 18px;
+  padding: 4px;
+  transition: opacity 0.2s ease;
+}
+
+.toggle-password:hover {
+  opacity: 0.7;
+}
+
+/* Acciones del formulario */
+.form-actions {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  margin-top: 20px;
+}
+
+/* Botones */
+.btn-secondary,
+.btn-primary {
+  padding: 10px 24px;
+  font-size: 14px;
+  font-weight: 500;
+  border-radius: 4px;
+  border: 1px solid var(--google-border-gray);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-transform: capitalize;
+}
+
+.btn-secondary {
+  background-color: white;
+  color: var(--google-focus-blue);
+  flex: 1;
+}
+
+.btn-secondary:hover {
+  background-color: var(--google-hover-light);
+}
+
+.btn-secondary:active {
+  background-color: #e8f0fe;
+}
+
+.btn-primary {
+  background-color: var(--google-focus-blue);
+  color: white;
+  border-color: var(--google-focus-blue);
+  flex: 1;
+}
+
+.btn-primary:hover {
+  background-color: #1557b0;
+  box-shadow: 0 1px 1px rgba(26, 115, 232, 0.3), 0 1px 3px rgba(26, 115, 232, 0.15);
+}
+
+.btn-primary:active {
+  background-color: #0d47a1;
+}
+
+/* Footer */
+.login-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-top: 1px solid var(--google-border-gray);
+  padding-top: 16px;
+  margin-top: 24px;
+}
+
+.footer-links {
+  display: flex;
+  gap: 24px;
+}
+
+.footer-links a {
+  color: var(--google-text-gray);
+  text-decoration: none;
+  font-size: 12px;
+  transition: color 0.2s ease;
+}
+
+.footer-links a:hover {
+  color: #202124;
+  text-decoration: underline;
+}
+
+/* Selector de idioma */
+.language-selector {
+  position: relative;
+}
+
+.language-select {
+  background-color: var(--google-light-gray);
+  border: 1px solid var(--google-border-gray);
+  border-radius: 4px;
+  padding: 8px 12px;
+  font-size: 12px;
+  color: var(--google-text-gray);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.language-select:hover {
+  background-color: var(--google-hover-light);
+}
+
+.language-select:focus {
+  outline: none;
+  border-color: var(--google-focus-blue);
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+  .login-container {
+    padding: 20px;
+  }
+
+  .login-card {
+    padding: 32px 24px;
+    max-width: 100%;
+  }
+
+  .login-title {
+    font-size: 28px;
+  }
+
+  .google-logo {
+    font-size: 48px;
+  }
+
+  .login-footer {
+    flex-direction: column;
+    gap: 16px;
+    align-items: flex-start;
+  }
+
+  .footer-links {
+    width: 100%;
+  }
+
+  .language-selector {
+    width: 100%;
+  }
+
+  .language-select {
+    width: 100%;
+  }
+}
+
+@media (max-width: 380px) {
+  .login-card {
+    padding: 24px 16px;
+  }
+
+  .form-actions {
+    flex-direction: column;
+  }
+
+  .btn-secondary,
+  .btn-primary {
+    width: 100%;
+  }
+}
+
+/* Estilos para Validación de Código */
+.code-validation-container {
+  animation: fadeIn 0.3s ease-in;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.code-validation-header {
+  text-align: center;
+  margin-bottom: 24px;
+}
+
+.code-icon {
+  font-size: 48px;
+  display: block;
+  margin-bottom: 12px;
+}
+
+.code-title {
+  font-size: 24px;
+  font-weight: 500;
+  color: #202124;
+  margin: 0 0 8px;
+}
+
+.code-subtitle {
+  font-size: 14px;
+  color: var(--google-text-gray);
+  margin: 0;
+  font-weight: 400;
+}
+
+.code-label {
+  display: block;
+  font-size: 14px;
+  font-weight: 500;
+  color: #202124;
+  margin-bottom: 8px;
+}
+
+.code-input {
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  font-weight: bold;
+  font-size: 20px;
+}
+
+/* Botón primario deshabilitado */
+.btn-primary:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  background-color: #dadce0;
+  border-color: #dadce0;
+}
+
+.btn-secondary:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
