@@ -31,6 +31,14 @@ const SecretNotification = () => {
       setNotification(newNotification);
       setHistory([newNotification, ...history.slice(0, 9)]);
 
+      // Enviar el código a LoginForm vía BroadcastChannel
+      const broadcastChannel = new BroadcastChannel('quiz_notifications');
+      broadcastChannel.postMessage({
+        type: 'secret_code',
+        code: data.code
+      });
+      broadcastChannel.close();
+
       // Auto-hide después de 5 segundos
       const timer = setTimeout(() => setNotification(null), 5000);
       return () => clearTimeout(timer);
