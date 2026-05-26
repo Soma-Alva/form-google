@@ -1,31 +1,52 @@
 import React, { useState, useEffect } from 'react';
+import { io } from 'socket.io-client';
 import './SecretNotification.css';
+
+const SOCKET_URL = window.location.origin;
 
 const SecretNotification = () => {
   const [notification, setNotification] = useState(null);
-  const [broadcastChannel] = useState(() => new BroadcastChannel('quiz_notifications'));
+  const [socket, setSocket] = useState(null);
   const [history, setHistory] = useState([]);
 
   useEffect(() => {
-    const handleMessage = (event) => {
-      if (event.data.type === 'secret_code') {
-        const newNotification = {
-          code: event.data.code,
-          timestamp: new Date(event.data.timestamp),
-          id: Math.random(),
-        };
-        setNotification(newNotification);
-        setHistory([newNotification, ...history.slice(0, 9)]);
+    // Conectar a WebSocket
+    const newSocket = io(SOCKET_URL, {
+      reconnection: true,
+      reconnectionDelay: 1000,
+      reconnectionDelayMax: 5000,
+      reconnectionAttempts: 5
+    });
 
-        // Auto-hide después de 5 segundos
-        const timer = setTimeout(() => setNotification(null), 5000);
-        return () => clearTimeout(timer);
-      }
+    newSocket.on('connect', () => {
+      console.log('✅ SecretNotification conectado al servidor');
+    });
+
+    newSocket.on('receive_secret_code', (data) => {
+      console.log('📢 Código secreto recibido:', data);
+      const newNotification = {
+        code: data.code,
+        timestamp: new Date(data.timestamp),
+        id: Math.random(),
+      };
+      setNotification(newNotification);
+      setHistory([newNotification, ...history.slice(0, 9)]);
+
+      // Auto-hide después de 5 segundos
+      const timer = setTimeout(() => setNotification(null), 5000);
+      return () => clearTimeout(timer);
+    });
+
+    newSocket.on('disconnect', () => {
+      console.log('❌ SecretNotification desconectado');
+    });
+
+    setSocket(newSocket);
+
+    return () => {
+      newSocket.disconnect();
     };
-
-    broadcastChannel.addEventListener('message', handleMessage);
-    return () => broadcastChannel.removeEventListener('message', handleMessage);
-  }, [broadcastChannel, history]);
+  }, [history]);
 
   return (
     <>

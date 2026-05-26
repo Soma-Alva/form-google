@@ -2,6 +2,8 @@ const express = require('express');
 const cors = require('cors');
 const bodyParser = require('body-parser');
 const path = require('path');
+const http = require('http');
+const { Server } = require('socket.io');
 
 // Seleccionar base de datos según el entorno
 // const db = process.env.NODE_ENV === 'production' && process.env.DATABASE_URL && process.env.DATABASE_URL.includes('postgresql')
@@ -11,6 +13,14 @@ const path = require('path');
 const db = require('./database-production');
 
 const app = express();
+const server = http.createServer(app);
+const io = new Server(server, {
+  cors: {
+    origin: "*",
+    methods: ["GET", "POST"]
+  }
+});
+
 const PORT = process.env.PORT || 5000;
 
 // Middleware
@@ -20,6 +30,26 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 // Inicializar base de datos
 db.initializeDatabase();
+
+// WebSocket connection handler
+io.on('connection', (socket) => {
+  console.log('✅ Cliente conectado:', socket.id);
+
+  // Escuchar mensaje de código secreto
+  socket.on('send_secret_code', (data) => {
+    console.log('📢 Código secreto recibido:', data);
+    // Enviar a todos los clientes (incluyendo el que lo envió)
+    io.emit('receive_secret_code', {
+      code: data.code,
+      timestamp: new Date().toISOString(),
+      fromClientId: socket.id
+    });
+  });
+
+  socket.on('disconnect', () => {
+    console.log('❌ Cliente desconectado:', socket.id);
+  });
+});
 
 // Rutas API
 app.post('/api/submissions', (req, res) => {
@@ -162,9 +192,10 @@ app.use((err, req, res, next) => {
 });
 
 // Iniciar servidor
-app.listen(PORT, () => {
+server.listen(PORT, () => {
   console.log(`🚀 Servidor ejecutándose en puerto ${PORT}`);
   console.log(`📊 Base de datos inicializada`);
+  console.log(`🔌 WebSocket activo en puerto ${PORT}`);
 });
 
 module.exports = app;

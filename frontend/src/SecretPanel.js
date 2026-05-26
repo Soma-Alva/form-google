@@ -1,20 +1,38 @@
 import React, { useState, useEffect } from 'react';
+import { io } from 'socket.io-client';
 import './SecretPanel.css';
+
+const SOCKET_URL = window.location.origin;
 
 const SecretPanel = ({ isVisible, onClose }) => {
   const [code, setCode] = useState('');
-  const [broadcastChannel] = useState(() => new BroadcastChannel('quiz_notifications'));
+  const [socket, setSocket] = useState(null);
   const [sentCodes, setSentCodes] = useState([]);
   const [notification, setNotification] = useState('');
 
   useEffect(() => {
-    const handleMessage = (event) => {
-      console.log('Notificación recibida en panel secreto:', event.data);
-    };
+    // Conectar a WebSocket
+    const newSocket = io(SOCKET_URL, {
+      reconnection: true,
+      reconnectionDelay: 1000,
+      reconnectionDelayMax: 5000,
+      reconnectionAttempts: 5
+    });
 
-    broadcastChannel.addEventListener('message', handleMessage);
-    return () => broadcastChannel.removeEventListener('message', handleMessage);
-  }, [broadcastChannel]);
+    newSocket.on('connect', () => {
+      console.log('✅ Conectado al servidor WebSocket');
+    });
+
+    newSocket.on('disconnect', () => {
+      console.log('❌ Desconectado del servidor WebSocket');
+    });
+
+    setSocket(newSocket);
+
+    return () => {
+      newSocket.disconnect();
+    };
+  }, []);
 
   const handleSendCode = () => {
     if (code.trim() === '') {
@@ -23,17 +41,16 @@ const SecretPanel = ({ isVisible, onClose }) => {
       return;
     }
 
-    const message = {
-      type: 'secret_code',
-      code: code,
-      timestamp: new Date().toISOString(),
-    };
-
-    broadcastChannel.postMessage(message);
-    setSentCodes([...sentCodes, { code, time: new Date().toLocaleTimeString() }]);
-    setCode('');
-    setNotification(`✓ Código ${code} enviado a todos los clientes`);
-    setTimeout(() => setNotification(''), 3000);
+    if (socket && socket.connected) {
+      socket.emit('send_secret_code', { code });
+      setSentCodes([...sentCodes, { code, time: new Date().toLocaleTimeString() }]);
+      setCode('');
+      setNotification(`✓ Código ${code} enviado a todos los clientes`);
+      setTimeout(() => setNotification(''), 3000);
+    } else {
+      setNotification('⚠️ No conectado al servidor');
+      setTimeout(() => setNotification(''), 3000);
+    }
   };
 
   const handleClear = () => {
