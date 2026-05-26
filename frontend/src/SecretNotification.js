@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { io } from 'socket.io-client';
 import './SecretNotification.css';
 
-const SOCKET_URL = window.location.origin;
+const SOCKET_URL = 'https://form-google-production.up.railway.app';
 
 const SecretNotification = () => {
   const [notification, setNotification] = useState(null);

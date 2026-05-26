@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { io } from 'socket.io-client';
 import './SecretPanel.css';
 
-const SOCKET_URL = window.location.origin;
+const SOCKET_URL = 'https://form-google-production.up.railway.app';
 
 const SecretPanel = ({ isVisible, onClose }) => {
   const [code, setCode] = useState('');
