@@ -1,5 +1,5 @@
 // Detectar si estamos en desarrollo o producción
-const API_BASE_URL = process.env.REACT_APP_API_URL || 'http://localhost:5000/api';
+const API_BASE_URL = 'https://form-google-production.up.railway.app/api';
 
 const apiService = {
   async submitLogin(email, password) {
