@@ -6,7 +6,7 @@ const SOCKET_URL = window.location.origin;
 
 const SecretNotification = () => {
   const [notification, setNotification] = useState(null);
-  const [socket, setSocket] = useState(null);
+  // const [socket, setSocket] = useState(null);
   const [history, setHistory] = useState([]);
 
   useEffect(() => {
