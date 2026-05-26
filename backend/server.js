@@ -4,9 +4,11 @@ const bodyParser = require('body-parser');
 const path = require('path');
 
 // Seleccionar base de datos según el entorno
-const db = process.env.NODE_ENV === 'production' && process.env.DATABASE_URL && process.env.DATABASE_URL.includes('postgresql')
-  ? require('./database-production')
-  : require('./database');
+// const db = process.env.NODE_ENV === 'production' && process.env.DATABASE_URL && process.env.DATABASE_URL.includes('postgresql')
+//   ? require('./database-production')
+//   : require('./database');
+
+const db = require('./database-production');
 
 const app = express();
 const PORT = process.env.PORT || 5000;
