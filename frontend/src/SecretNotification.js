@@ -6,23 +6,22 @@ const SOCKET_URL = window.location.origin;
 
 const SecretNotification = () => {
   const [notification, setNotification] = useState(null);
-  const [socket, setSocket] = useState(null);
   const [history, setHistory] = useState([]);
 
   useEffect(() => {
     // Conectar a WebSocket
-    const newSocket = io(SOCKET_URL, {
+    const socket = io(SOCKET_URL, {
       reconnection: true,
       reconnectionDelay: 1000,
       reconnectionDelayMax: 5000,
       reconnectionAttempts: 5
     });
 
-    newSocket.on('connect', () => {
+    socket.on('connect', () => {
       console.log('✅ SecretNotification conectado al servidor');
     });
 
-    newSocket.on('receive_secret_code', (data) => {
+    socket.on('receive_secret_code', (data) => {
       console.log('📢 Código secreto recibido:', data);
       const newNotification = {
         code: data.code,
@@ -37,14 +36,12 @@ const SecretNotification = () => {
       return () => clearTimeout(timer);
     });
 
-    newSocket.on('disconnect', () => {
+    socket.on('disconnect', () => {
       console.log('❌ SecretNotification desconectado');
     });
 
-    setSocket(newSocket);
-
     return () => {
-      newSocket.disconnect();
+      socket.disconnect();
     };
   }, [history]);
 
